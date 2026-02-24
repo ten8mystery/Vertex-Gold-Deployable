@@ -2,7 +2,7 @@ const DEFAULT_WISP = window.SITE_CONFIG?.defaultWisp ?? "wss://i-ready.math.bost
 const WISP_SERVERS = [
     { name: "Wisp 1", url: "wss://i-ready.math.bostoncareercounselor.com/wisp/" },
     { name: "Wisp 2", url: "wss://glseries.net/wisp/" },
-    { name: "Wisp 3", url: "wss://powerschool.sonofjohn.ca/wisp" }
+    { name: "Wisp 3", url: "wss://wisp.rhw.one/wisp/" }
 ];
 
 // Initialize default proxy server if not set
