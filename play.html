@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vertex Gold – Play</title>
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ten8mystery/Vertex-Gold/refs/heads/main/images/favicon.png">
+  <link rel="icon" type="image/png" href="images/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
@@ -254,7 +254,7 @@
       height: 100%;
       border: 1px solid rgba(255,215,120,0.2);
       border-radius: 18px;
-      background: #000;
+      background: 	#2F2F2F;
     }
 
     @keyframes shine { to { background-position: 200% center; } }
@@ -372,19 +372,41 @@ fetch('https://raw.githubusercontent.com/ten8mystery/Vertex-Gold/main/data/games
         overlay.style.display = 'flex'; // Uses flex to center content
         const iframe = createFreshIframe();
 
-        fetch(game.src)
-          .then(r => r.text())
-          .then(html => {
-            const doc = iframe.contentDocument || iframe.contentWindow.document;
-            doc.open();
-            doc.write(html);
-            doc.close();
-          })
+fetch(game.src)
+  .then(r => r.text())
+  .then(html => {
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(html);
+    doc.close();
+  })
           .catch(() => {
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
             doc.write(`<h2 style="color:white;padding:20px;">Failed to load game</h2>`);
             doc.close();
+            iframe.onload = () => {
+
+  const removeAds = () => {
+    const ads =
+      iframe.contentDocument?.querySelectorAll(
+        '#sidebarad1, #sidebarad2'
+      );
+
+    ads?.forEach(ad => ad.remove());
+  };
+
+  // remove immediately
+  removeAds();
+
+  // keep removing if game recreates ads
+  const observer = new MutationObserver(removeAds);
+
+  observer.observe(
+    iframe.contentDocument,
+    { childList: true, subtree: true }
+  );
+};
           });
       });
 
